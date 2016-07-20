@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>remove</title>
+</head>
+<body>
+
+Are You Sure You Want To Delete the following Course ?
+
+<form action="/delete_confirm/{{ id }}" method="post" >
+<p>Name :{{ show_course['courses_name'] }}</p>
+<p>Description :{{ show_course['Description'] }}</p>
+<input type="submit" name="yes" value="Yes! I want to delete course {{ id }}"></p>
+</form>
+<a href="/"><button>NO</button></a>
+
+</body>
+</html>
