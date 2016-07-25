@@ -33,6 +33,13 @@ routes['/'] = 'Logins#index'
 routes['/logout'] = 'Logins#logout'
 routes['POST']['/registration'] = 'Logins#create'
 routes['POST']['/login'] = 'Logins#login'
+routes['/wish_items'] = 'Logins#add'
+routes['POST']['/add_items'] = 'Logins#add_items'
+routes['/wishitem/<int:id>'] = 'Logins#showwish'
+routes['/delete_item/<int:id>'] = 'Logins#delete'
+routes['/remove_wishlist/<int:id>'] = 'Logins#remove'
+routes['/add_wishlist/<int:id>'] = 'Logins#add_wishlist'
+
 
 
 

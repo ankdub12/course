@@ -5,8 +5,45 @@
 	<link rel="stylesheet" href="/static/css/styles.css" type="text/css">
 </head>
 <body>
-<div>
+
 <table width="100%"><tr><td width="80%">Welcome &nbsp;{{ session['name'] }}!</td><td><a href="/logout">log out</a></td></tr></table>
+
+<div  class="table">
+YOUR WISHLIST:
+
+<table border=1>
+	<tr><td>Item</td><td>Added by</td><td>Date Added</td><td>Action</td></tr>
+	{% for wishlist in wishlist %}
+	<tr><td><a href="/wishitem/{{ wishlist['id'] }}">{{ wishlist['item'] }}</td></a>
+	<td>{{ wishlist['name'] }}</td>
+	<td>{{ wishlist['date_added'] }}</td>
+	{% if wishlist['name'] == session['name'] %}
+		<td> <a href="/delete_item/{{ wishlist['id'] }}"><input class="button" type="submit" name="remove" value="DELETE" ></a></td></tr>
+	{% else %}
+		<td><a href="/remove_wishlist/{{ wishlist['id'] }}"><input class="button" type="submit" name="remove" value="Remove from my Wishlist" ></a></td></tr>
+	{% endif %}
+	{% endfor %}
+</table>	
+</div>
+<hr/>
+
+<div class="table">
+OTHERS WISHLIST:
+<table border = 1>
+<tr><td>Item</td><td>Added by</td><td>Date Added</td><td>Action</td></tr>
+{% for other_wishlist in others_wishlist %}
+	<tr><td><a href="/wishitem/{{ other_wishlist['id'] }}">{{ other_wishlist['item'] }}</a></td>
+	<td>{{ other_wishlist['name'] }}</td>
+	<td>{{ other_wishlist['date_added'] }}</td>
+	<td><a href="/add_wishlist/{{ other_wishlist['id'] }}"><input class="button" type="submit" name="remove" value="Add to my Wishlist" ></a></td></tr>
+{% endfor %}
+</table>
+</div>
+
+<hr/>
+
+<div>
+	 <a href="/wish_items">Add Items</a>
 </div>
 
 

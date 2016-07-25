@@ -1,0 +1,18 @@
+<!DOCTYPE htmlem>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<p><h1>{{ item }}</h1><a href="/">HOME</a> &nbsp; &nbsp; <a href="/logout">Log out</a></p>
+People who added this product/Item under their wishlist:
+
+{% for itemlist in itemlist %}
+<p>{{ itemlist['name'] }}</p>
+{%  endfor %}
+
+
+
+</body>
+</html>

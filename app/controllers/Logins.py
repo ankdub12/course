@@ -8,7 +8,11 @@ class Logins(Controller):
    
     def index(self):
         if session.has_key('id'):
-            return self.load_view('mainpage.html')       
+            data = {
+                'id': session['id']
+                }
+            details = self.models['Loginmodel'].wishlist(data)
+            return self.load_view('mainpage.html', wishlist=details['show_wishlist'], others_wishlist=details['other_wishlist'])       
         else:
             return self.load_view('index.html')
 
@@ -26,7 +30,8 @@ class Logins(Controller):
         'alias': request.form['alias'],
         'email': request.form['email'],
         'password': request.form['password'],
-        'confirm_password': request.form['confirm_password']
+        'confirm_password': request.form['confirm_password'],
+        'date_hire': request.form['date_hire']
         }
         create_status = self.models['Loginmodel'].create(data)
         if create_status['status'] == True:
@@ -49,6 +54,54 @@ class Logins(Controller):
         else:
             flash("Email or password does not exist")
         return redirect('/')
+
+    def add(self):
+       return self.load_view('add_items.html')
+
+    def add_items(self):
+        data = {
+        'item': request.form['item'],
+        'id': session['id']
+        }
+        self.models['Loginmodel'].add_item(data)
+        return redirect('/')
+
+    def showwish(self, id):
+        data = {
+        'id': id
+        }
+        itemlist = self.models['Loginmodel'].show_list(data)
+        item = itemlist['item_data'][0]['item']
+        return self.load_view('wish_items.html', itemlist= itemlist['item_data'], item=item)
+
+    def delete(self, id):
+        data = {
+        'item_id': id,
+        'user_id': session['id']
+        }
+        self.models['Loginmodel'].delete_from_list(data)
+        self.models['Loginmodel'].delete_from_item(data)
+        return redirect('/')
+
+    def add_wishlist(self, id):
+        data = {
+        'item_id': id,
+        'user_id': session['id']
+        }
+        self.models['Loginmodel'].add_to_list(data)
+        return redirect('/')
+
+    def remove(self, id):
+        data = {
+        'item_id': id,
+        'user_id': session['id']
+        }
+        self.models['Loginmodel'].delete_from_list(data)
+        return redirect('/')
+
+
+
+
 
    
 
