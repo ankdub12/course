@@ -68,16 +68,14 @@ class Loginmodel(Model):
         return
 
     def wishlist(self,data):
-        query = 'select DISTINCT items.id, item, items.id, users.name as name, date_added from wishlist join items on item_id = items.id join users on users.id = items.user_id where wishlist.user_id = :id'
-        #query = "SELECT item, items.id ,users.name, date_added from wishlist join items on item_id = items.id join users on wishlist.user_id = users.id where wishlist.user_id = :id"
+        query = 'select DISTINCT Items.id, item, Items.id, users.name as name, date_added from wishlist join Items on item_id = Items.id join users on users.id = Items.user_id where wishlist.user_id = :id'
         wishlist_info = self.db.query_db(query, data)
-        query_data = 'select DISTINCT items.id, item, users.name as name, date_added from wishlist join items on item_id = items.id join users on users.id = items.user_id where wishlist.user_id != :id'
-        #query_data = "SELECT item, items.id ,users.name, date_added from wishlist join items on item_id = items.id join users on wishlist.user_id = users.id where wishlist.user_id != :id"
+        query_data = 'select DISTINCT Items.id, item, users.name as name, date_added from wishlist join Items on item_id = Items.id join users on users.id = Items.user_id where wishlist.user_id != :id'
         others_wishlist_info = self.db.query_db(query_data, data)
         return { 'show_wishlist': wishlist_info, 'other_wishlist': others_wishlist_info}
 
     def show_list(self, data):
-        query = "SELECT users.name, items.item from wishlist left join users on wishlist.user_id = users.id left join Items on wishlist.Item_id = Items.id where wishlist.item_id = :id"
+        query = "SELECT users.name, Items.item from wishlist left join users on wishlist.user_id = users.id left join Items on wishlist.Item_id = Items.id where wishlist.item_id = :id"
         item_data = self.db.query_db(query, data)
         return { 'item_data' : item_data }
 
@@ -87,7 +85,7 @@ class Loginmodel(Model):
         return
 
     def delete_from_item(self, data):
-        query = "DELETE from items where id = :item_id and user_id = :user_id"
+        query = "DELETE from Items where id = :item_id and user_id = :user_id"
         self.db.query_db(query, data)
 
     def add_to_list(self, data):
