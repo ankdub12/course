@@ -4,6 +4,14 @@
 	<title></title>
 </head>
 <body>
+
+{% with messages = get_flashed_messages() %}
+ {% if messages %}
+  {% for message in messages %}
+    <p>{{message}}</p>
+  {% endfor %}
+ {% endif %}
+{% endwith %}
  <a href="/">HOME</a> &nbsp; &nbsp; <a href="/logout">Log out</a>
 <p> 
 <form action="/add_items" , method="POST" >

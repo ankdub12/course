@@ -59,8 +59,12 @@ class Logins(Controller):
        return self.load_view('add_items.html')
 
     def add_items(self):
+        item = request.form['item']
+        if len(item) < 3:
+          flash('Items can not be less than 3 character')
+          return self.load_view('add_items.html')
         data = {
-        'item': request.form['item'],
+        'item': item,
         'id': session['id']
         }
         self.models['Loginmodel'].add_item(data)
